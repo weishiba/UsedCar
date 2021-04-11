@@ -5,13 +5,10 @@ spring:
     username: root
     password: root
   thymeleaf:
-    #prefix: classpath:/templates/
     suffix: .html
     mode: HTML5
 
-#  web:
-#    resources:
-#      static-locations: classpath:/static/,classpath:/resources/
+
 
 
 server:
