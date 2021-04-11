@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wsc.mapper.AuditMapper">
+    <select id="selectAllAudit" resultType="com.wsc.entity.Audit">
+        select * from Audit;
+    </select>
+
+    <select id="selectById" resultType="com.wsc.entity.Audit">
+        select * from Audit where id = #{id};
+    </select>
+
+    <insert id="insertAudit" parameterType="com.wsc.entity.Audit">
+        insert into audit
+        values(#{id},#{createrId},#{createrName},#{createTime},#{auditerId},
+        #{auditerName},#{auditerTime},#{auditStatus},#{auditNote})
+    </insert>
+
+    <delete id="deleteAuditById" >
+        delete from audit where id = #{id}
+    </delete>
+
+    <update id="updateAudit">
+        update audit set
+        <if test="createrId != null and createrId != ''">
+            creater_id = #{createrId},
+        </if>
+        <if test="createrName != null and createrName != ''">
+            creater_name = #{createrName},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time = #{createTime},
+        </if>
+        <if test="auditerId != null and auditerId != ''">
+            auditer_id = #{auditerId},
+        </if>
+        <if test="auditerName != null and auditerName != ''">
+            auditer_name = #{auditerName},
+        </if>
+        <if test="auditerTime != null and auditerTime != ''">
+            auditer_time = #{auditerTime},
+        </if>
+        <if test="auditStatus != null and auditStatus != ''">
+            audit_status = #{auditStatus},
+        </if>
+        <if test="auditNote != null and auditNote != ''">
+            audit_note = #{auditNote}
+        </if>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.PermissionMapper">
+
+    <select id="selectAllPermission" resultType="com.wsc.entity.Permission">
+        select * from Permission;
+    </select>
+
+    <select id="selectById" resultType="com.wsc.entity.Permission">
+        select * from Permission where id = #{id};
+    </select>
+
+    <insert id="insertPermission" parameterType="com.wsc.entity.Permission">
+        insert into Permission
+        values (#{id},#{userId},#{roleId})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from Permission where id = #{id}
+    </delete>
+
+    <update id="updatePermission" parameterType="com.wsc.entity.Permission">
+        update Permission set
+        <if test="userId != null and userId !=''">
+        user_id = #{userId},
+        </if>
+        <if test="roleId != null and roleId !=''">
+        role_id = #{roleId}
+        </if>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+
+</mapper>

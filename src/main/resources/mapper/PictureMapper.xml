@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.PictureMapper">
+
+    <select id="selectAllPicture" resultType="com.wsc.entity.Picture">
+        select * from Picture;
+    </select>
+
+    <select id="selectById" resultType="com.wsc.entity.Picture">
+        select * from Picture where id = #{id};
+    </select>
+
+    <insert id="insertPicture" parameterType="com.wsc.entity.Picture">
+        insert into Picture
+        values (#{id},#{carId},#{picture1Path},#{picture2Path},#{picture3Path},#{picture4Path}
+        ,#{picture5Path},#{picture6Path},#{picture7Path})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from Picture where id = #{id}
+    </delete>
+
+    <update id="updatePicture" parameterType="com.wsc.entity.Picture">
+        update Picture set
+        <if test="carId != null and carId !=''">
+            car_id = #{carId},
+        </if>
+        <if test="picture1Path != null and picture1Path !=''">
+            picture1_path = #{picture1Path},
+        </if>
+        <if test="picture2Path != null and picture2Path !=''">
+            picture2_path = #{picture2Path},
+        </if>
+        <if test="picture3Path != null and picture3Path !=''">
+            picture3_path = #{picture2Path},
+        </if>
+        <if test="picture4Path != null and picture4Path !=''">
+            picture4_path = #{picture4Path},
+        </if>
+        <if test="picture5Path != null and picture5Path !=''">
+            picture5_path = #{picture5Path},
+        </if>
+        <if test="picture6Path != null and picture6Path !=''">
+            picture6_path = #{picture6Path},
+        </if>
+        <if test="picture7Path != null and picture7Path !=''">
+            picture7_path = #{picture7Path}
+        </if>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+
+</mapper>

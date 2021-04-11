@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wsc.mapper.CarMapper">
+
+    <select id="selectAllCar" resultType="com.wsc.entity.Car">
+         select * from Car;
+    </select>
+
+
+    <select id="selectByCondition" parameterType="hashmap" resultType="com.wsc.entity.Car">
+        select * from Car where
+        <include refid="condition_sql"></include>
+    </select>
+
+
+    <select id="selectById" resultType="com.wsc.entity.Car">
+        select * from Car where id = #{id};
+    </select>
+
+    <insert id="insertCar" parameterType="com.wsc.entity.Car">
+        insert into Car
+        values(#{id},#{pictureId},#{brand},#{model},#{color},#{type},#{seatNum},#{timeToMarket}
+        ,#{newCarPrice},#{price},#{usedTime},#{mileage},#{sale},#{saleTime},#{note},#{saleType})
+    </insert>
+
+    <delete id="deleteCarById">
+        delete from Car where id = #{id}
+    </delete>
+
+    <update id="updateCar">
+        update car set
+        <if test="pictureId != null and pictureId !=''">
+            picture_id = #{pictureId} ,
+        </if>
+        <if test="brand != null and brand !=''">
+            brand = #{brand} ,
+        </if>
+        <if test="model != null and model !=''">
+            model = #{model} ,
+        </if>
+        <if test="color != null and color !=''">
+            color = #{color} ,
+        </if>
+        <if test="type != null and type !=''">
+            type = #{type} ,
+        </if>
+        <if test="seatNum != null and seatNum !=''">
+            seat_num = #{seatNum} ,
+        </if>
+        <if test="timeToMarket != null and timeToMarket !=''">
+            time_to_market = #{timeToMarket} ,
+        </if>
+        <if test="newCarPrice != null and newCarPrice !=''">
+            new_car_price = #{newCarPrice} ,
+        </if>
+        <if test="price != null and price !=''">
+            price = #{price} ,
+        </if>
+        <if test="usedTime != null and usedTime !=''">
+            userd_time = #{usedTime} ,
+        </if>
+        <if test="mileage != null and mileage !=''">
+            mileage = #{mileage} ,
+        </if>
+        <if test="sale != null and sale !=''">
+            sale = #{sale} ,
+        </if>
+        <if test="saleTime != null and saleTime !=''">
+            sale_time = #{saleTime} ,
+        </if>
+        <if test="note != null and note !=''">
+            note = #{note}
+        </if>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <sql id="condition_sql">
+        <if test="brand != null and brand !=''">
+            brand = #{brand} and
+        </if>
+        <if test="model != null and model !=''">
+            model = #{model} and
+        </if>
+        <if test="color != null and color !=''">
+            color = #{color} and
+        </if>
+        <if test="seatNum != null and seatNum !=''">
+            seat_num = #{seatNum} and
+        </if>
+    </sql>
+
+</mapper>

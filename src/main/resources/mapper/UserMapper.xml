@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wsc.mapper.UserMapper">
+
+    <resultMap id="UserMapper" type="com.wsc.entity.User">
+        <result column="id" javaType="Long" property="id"/>
+
+    </resultMap>
+
+    <select id="selectAllUser" resultType="com.wsc.entity.User">
+        select * from user;
+    </select>
+
+    <select id="selectUser" resultType="com.wsc.entity.User">
+        select * from user where id = #{id};
+    </select>
+
+    <select id="selectUserByName" resultType="com.wsc.entity.User">
+        select * from user where username like concat('%', #{username},'%' );
+    </select>
+
+    <insert id="insertUser" parameterType="com.wsc.entity.User">
+        insert into User
+        values (#{id},#{username},#{password},#{sex},#{note},#{disabled})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from User where id = #{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.wsc.entity.User">
+        update User set
+        <if test="username != null and username !=''">
+            username = #{username},
+        </if>
+        <if test="password != null and password !=''">
+            password = #{password}
+        </if>
+        <if test="sex != null and sex !=''">
+            sex = #{sex}
+        </if>
+        <if test="note != null and note !=''">
+            note = #{note}
+        </if>
+        <if test="disabled != null and disabled !=''">
+            disabled = #{disabled}
+        </if>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>
