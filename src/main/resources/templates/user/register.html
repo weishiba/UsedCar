@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注册</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{//at.alicdn.com/t/font_2041061_7zc0hmvynf9.css}"/>
+</head>
+<body>
+<div id="login">
+    <h2 style="text-align: center">注册</h2>
+    <form id="registerForm" style="text-align: center">
+        账   号：<input type="text" name="username" required><br><br>
+        密   码：<input id="pwd" type="password" name="password" required>
+        <span id="icon" class="iconfont icon-hiddenpwd"></span><br><br>
+        确认密码：<input id="pwd1" type="password" name="confirmpassword" required><br><br>
+        <input type="submit" value="注册">
+        <button style="text-align: center" href="javascript:void(0)" onclick="login()" >返回</button>
+        <div id="rigisterHint" style="text-align: center;color: red">
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    var base = "base";
+</script>
+<script type="text/javascript" th:src="@{https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkcode.js}"></script>
+</body>
+</html>

@@ -15,6 +15,10 @@
         select * from user where id = #{id};
     </select>
 
+    <select id="selectUser1" resultType="com.wsc.entity.User">
+        select * from user where username = #{username} and password = #{password};
+    </select>
+
     <select id="selectUserByName" resultType="com.wsc.entity.User">
         select * from user where username like concat('%', #{username},'%' );
     </select>

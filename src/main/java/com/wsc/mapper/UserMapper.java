@@ -25,7 +25,9 @@ public interface UserMapper {
      */
     User selectUser(long id);
 
-    List<User> selectUserByName(String name);
+    User selectUser1(String username, String password);
+
+    User selectUserByName(String name);
 
     int insertUser(User user);
 

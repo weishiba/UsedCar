@@ -11,4 +11,14 @@ public class User {
     private String note;
     private Integer disabled;//是否禁用（0：否，1：是）
 
+    public User(){}
+
+    //disabled是否默认为0？如果是就不用加入构造方法
+    public User(String username,String password,Integer sex,String note){
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.note = note;
+    }
+
 }
