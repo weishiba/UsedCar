@@ -1,5 +1,7 @@
 package com.wsc.service;
 
+import com.github.pagehelper.PageInfo;
+import com.wsc.VO.CarConditionVO;
 import com.wsc.entity.Car;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,9 @@ public interface CarService {
      */
     List<Car> getAllCar();
 
-    List<Car> getByCondition(Car car);
+    List<Car> getByCondition(CarConditionVO conditionVO);
+
+    PageInfo<Car> getByConditionPages(CarConditionVO conditionVO,int pageNow,int pageSize);
 
     Car getById(Long id);
 

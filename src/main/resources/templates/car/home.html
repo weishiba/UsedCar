@@ -7,20 +7,70 @@
     <link rel="stylesheet" th:href="@{//at.alicdn.com/t/font_2041061_7zc0hmvynf9.css}"/>
 </head>
 <body>
-    <h1>二手车交易平台</h1>
 
-    <div class="menu">
-         <a class="button" href="javascript:void(0)" onclick="">买车</a>
-         <a class="button" href="javascript:void(0)" onclick="">卖车</a>
-         <a class="button" href="javascript:void(0)" onclick="">快速估价</a>
-         <a class="button" href="javascript:void(0)" onclick="">个人中心</a>
-         <a class="button" href="javascript:void(0)" onclick="leave()">安全退出</a>
-         <span class="right" th:text="|欢迎: ${username}!|"></span>
-    </div>
-    <div class="list">
 
-    </div>
-<hr/>
+<div class="menu">
+    <a class="button" href="javascript:void(0)" onclick="">买车</a>
+    <a class="button" href="javascript:void(0)" onclick="">卖车</a>
+    <a class="button" href="javascript:void(0)" onclick="">快速估价</a>
+    <a class="button" href="javascript:void(0)" onclick="">个人中心</a>
+    <a class="button" href="javascript:void(0)" onclick="leave()">安全退出</a>
+    <span class="right" th:text="| 欢迎: ${loginUser.username}!|"></span>
+</div>
+<div class="page">
+    <br>
+    <br>
+    <hr/>
+    <table>
+        <tr>
+            <td>id</td>
+            <td>缩略图</td>
+            <td>品牌</td>
+            <td>标价</td>
+            <td>车龄里程数</td>
+        </tr>
+        <tr th:if="${allCar.list.size() eq 0}">
+            <td>暂时没有指定二手车信息！</td>
+        </tr>
+        <tr th:each="car:${allCar.list}">
+            <td th:text="${car.id}"></td>
+            <td>
+                <div class="single-product clearfix">
+                    <a href="#">
+
+                            <img th:src="@{'/img/'+${car.picture}+'.jpg'}" >
+
+                    </a>
+                </div>
+            </td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.price}"></td>
+            <td th:text="|${car.usedTime}年 ${car.mileage}公里|"></td>
+        </tr>
+        <!--<div class="col-md-4 col-sm-4">
+            <div class="single-product-item">
+                <div class="single-product clearfix">
+                    <a href="#">
+                        <span class="product-image">
+                            <img src="img/product/1.jpg" alt="">
+                        </span>
+                    </a>
+                </div>
+                <h2 class="single-product-name"><a href="#">Fusce aliquam</a></h2>
+                <div class="price-box">
+                    <p class="old-price">
+                        <span class="price">$999.00</span>
+                    </p>
+                    <p class="special-price">
+                        <span class="price">$767.00</span>
+                    </p>
+                </div>
+            </div>
+        </div>-->
+    </table>
+</div>
+
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

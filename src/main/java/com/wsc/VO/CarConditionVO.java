@@ -1,21 +1,17 @@
-package com.wsc.entity;
+package com.wsc.VO;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author 18560
+ * @author wsc
+ * @date 2021/4/22
  */
-
 @Data
-public class Car {
-    //id
-    private Long id;
-    //缩略图
-    private String picture;
-    //图片id
-    private Long pictureId;
+public class CarConditionVO implements Serializable {
+    private static final long serialVersionUID = -6159384122625028249L;
     //品牌
     private String brand;
     //型号
@@ -26,12 +22,9 @@ public class Car {
     private Integer type;
     //座位数
     private Integer seatNum;
-    //上市时间
-    private String timeToMarket;
-    //新车价
-    private BigDecimal newCarPrice;
     //标价
-    private BigDecimal price;
+    private BigDecimal priceStr;
+    private BigDecimal priceEnd;
     //车龄
     private String usedTime;
     //行驶里程数(公里)
@@ -39,10 +32,10 @@ public class Car {
     //上架情况（0.未上架/1.已上架/2.下架）
     private Integer sale;
     //上架时间
-    private String saleTime;
+    private String saleTimeStr;
+    private String saleTimeEnd;
     //备注
     private String note;
     //交易类型（0:寄售类型，1:求购类型）
     private Integer saleType;
-
 }

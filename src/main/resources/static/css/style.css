@@ -1,6 +1,18 @@
 *{
     background-color: beige;
     font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+.menu{
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+.page{
+    height: 1400px;
+    margin-top: 100px;
 }
 table, th, td{
     border: 2px solid #CCCCCC;
@@ -98,7 +110,7 @@ a:active,.button1:active{
     text-align: center;
 }
 
-.bookpic {
+.pic {
     width: 150px;
     height: 150px;
 }
@@ -110,9 +122,7 @@ a:active,.button1:active{
     padding: 50px;
     background-color: antiquewhite;
 }
-.icon-xiugai,.icon-lajitong,.icon-gouwuchekong{
-    font-size: 25px;
-}
+
 .icon-xiugai:hover,.icon-lajitong:hover,.icon-gouwuchekong:hover {
     color: red;
     width: 80px;

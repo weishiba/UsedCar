@@ -8,8 +8,8 @@
     </select>
 
 
-    <select id="selectByCondition" parameterType="hashmap" resultType="com.wsc.entity.Car">
-        select * from Car where
+    <select id="selectByCondition" parameterType="com.wsc.VO.CarConditionVO" resultType="com.wsc.entity.Car">
+        select * from Car
         <include refid="condition_sql"></include>
     </select>
 
@@ -20,7 +20,7 @@
 
     <insert id="insertCar" parameterType="com.wsc.entity.Car">
         insert into Car
-        values(#{id},#{pictureId},#{brand},#{model},#{color},#{type},#{seatNum},#{timeToMarket}
+        values(#{id},#{picture},#{pictureId},#{brand},#{model},#{color},#{type},#{seatNum},#{timeToMarket}
         ,#{newCarPrice},#{price},#{usedTime},#{mileage},#{sale},#{saleTime},#{note},#{saleType})
     </insert>
 
@@ -30,6 +30,10 @@
 
     <update id="updateCar">
         update car set
+        <trim suffixOverrides=",">
+            <if test="picture != null and picture !=''">
+                picture = #{picture} ,
+            </if>
         <if test="pictureId != null and pictureId !=''">
             picture_id = #{pictureId} ,
         </if>
@@ -51,9 +55,6 @@
         <if test="timeToMarket != null and timeToMarket !=''">
             time_to_market = #{timeToMarket} ,
         </if>
-        <if test="newCarPrice != null and newCarPrice !=''">
-            new_car_price = #{newCarPrice} ,
-        </if>
         <if test="price != null and price !=''">
             price = #{price} ,
         </if>
@@ -72,24 +73,52 @@
         <if test="note != null and note !=''">
             note = #{note}
         </if>
+        </trim>
         <where>
             id = #{id}
         </where>
     </update>
 
     <sql id="condition_sql">
-        <if test="brand != null and brand !=''">
-            brand = #{brand} and
-        </if>
-        <if test="model != null and model !=''">
-            model = #{model} and
-        </if>
-        <if test="color != null and color !=''">
-            color = #{color} and
-        </if>
-        <if test="seatNum != null and seatNum !=''">
-            seat_num = #{seatNum} and
-        </if>
+        <!-- prefix:自动加上前缀where或者不加 suffixOverrides:自动去除多余的后缀and -->
+        <trim prefix="where" suffixOverrides="and">
+            <if test="brand != null and brand !=''">
+                brand = #{brand} and
+            </if>
+            <if test="model != null and model !=''">
+                model = #{model} and
+            </if>
+            <if test="color != null and color !=''">
+                color = #{color} and
+            </if>
+            <if test="type != null and type !=''">
+                type = #{type} and
+            </if>
+            <if test="seatNum != null and seatNum !=''">
+                seat_num = #{seatNum} and
+            </if>
+            <if test="priceStr != null and priceEnd != null">
+                price between #{priceStr} and #{priceEnd} and
+            </if>
+            <if test="usedTime != null and usedTime !=''">
+                userd_time = #{usedTime} and
+            </if>
+            <if test="mileage != null and mileage !=''">
+                mileage = #{mileage} and
+            </if>
+            <if test="sale != null and sale !=''">
+                sale = #{sale} and
+            </if>
+            <if test="saleTimeStr != null and saleTimeEnd !=''">
+                sale_time between #{saleTimeStr} and #{saleTimeEnd} and
+            </if>
+            <if test="note != null and note !=''">
+                note = #{note} and
+            </if>
+            <if test="saleType != null and saleType !=''">
+                sale_type = #{saleType}
+            </if>
+        </trim>
     </sql>
 
 </mapper>

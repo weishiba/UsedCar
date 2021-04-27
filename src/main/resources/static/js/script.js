@@ -30,13 +30,13 @@ $(function () {
     $("#registerForm").submit(function (event) {
         event.preventDefault();
         $.ajax({
-            url: "/usedcar/user/register2",
+            url: "/usedcar/user/register",
             type: "post",
             data: $(this).serialize(),
             success: function (data) {
                 if (data == 1) {
                     //注册成功,跳转到登录页面
-                    window.location.href ="/usedcar/user/index?info=1";
+                    window.location.href ="/usedcar/user/index";
                 } else if (data == 0) {
                     //用户名不正确
                     $("#rigisterHint").html("<b>用户名已被注册</b>");
@@ -48,15 +48,25 @@ $(function () {
         });
     });
     $("#icon").click(function () {
-        var type = $("#pwd").attr("type");
+        var type = $("#pwd1").attr("type");
         if (type == "password") {
             $("#icon").attr("class", "iconfont icon-showpwd");
-            $("#pwd").prop("type", "text");
             $("#pwd1").prop("type", "text");
         } else {
             $("#icon").attr("class", "iconfont icon-hiddenpwd");
-            $("#pwd").prop("type", "password");
             $("#pwd1").prop("type", "password");
+        }
+    });
+    $("#icon1").click(function () {
+        var type = $("#pwd2").attr("type");
+        if (type == "password") {
+            $("#icon1").attr("class", "iconfont icon-showpwd");
+            $("#pwd2").prop("type", "text");
+            $("#pwd3").prop("type", "text");
+        } else {
+            $("#icon1").attr("class", "iconfont icon-hiddenpwd");
+            $("#pwd2").prop("type", "password");
+            $("#pwd3").prop("type", "password");
         }
     });
 });

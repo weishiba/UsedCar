@@ -14,6 +14,7 @@ public class RegisterVO implements Serializable {
 
     private String username;
     private String password;
+    private String phone;
     private String confirmpassword;
     private Integer sex;//0：女， 1：男
     private String note;

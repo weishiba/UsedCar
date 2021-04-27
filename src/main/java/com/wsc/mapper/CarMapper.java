@@ -1,5 +1,6 @@
 package com.wsc.mapper;
 
+import com.wsc.VO.CarConditionVO;
 import com.wsc.entity.Car;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +19,7 @@ public interface CarMapper {
      */
     List<Car> selectAllCar();
 
-    List<Car> selectByCondition(Car car);
+    List<Car> selectByCondition(CarConditionVO conditionVO);
 
     Car selectById(Long id);
 

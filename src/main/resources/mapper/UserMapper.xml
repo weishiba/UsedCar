@@ -20,12 +20,15 @@
     </select>
 
     <select id="selectUserByName" resultType="com.wsc.entity.User">
+        select * from user where username = #{username};
+    </select>
+    <!-- 根据用户名字模糊查询 -->
+    <select id="selectUsersByName" resultType="com.wsc.entity.User">
         select * from user where username like concat('%', #{username},'%' );
     </select>
 
     <insert id="insertUser" parameterType="com.wsc.entity.User">
-        insert into User
-        values (#{id},#{username},#{password},#{sex},#{note},#{disabled})
+        insert into User values (#{id},#{username},#{password},#{phone},#{sex},#{note},#{disabled})
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
@@ -39,6 +42,9 @@
         </if>
         <if test="password != null and password !=''">
             password = #{password}
+        </if>
+        <if test="phone != null and phone !=''">
+            phone = #{phone}
         </if>
         <if test="sex != null and sex !=''">
             sex = #{sex}

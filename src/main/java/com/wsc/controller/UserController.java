@@ -29,9 +29,11 @@ public class UserController {
     private HttpSession session;
 
     //跳转主页使用默认跳转代替
+
+
     @GetMapping("/index")
     public String login(){
-        return "user/login";
+        return "user/index";
     }
 
     //登录入口
@@ -40,20 +42,18 @@ public class UserController {
     public String login(Model model,String username, String password) {
             User loginUser = userService.getUser(username, password);
             if (loginUser != null) {
-                session.setAttribute("loginUser",loginUser.getUsername());
+                model.addAttribute("loginUser",loginUser);
+                System.out.println("登陆成功");
                 return "1";
             }
             return "-1";
 
     }
-    @RequestMapping("/register")
-    public String register(){
-        return "/user/register";
-    }
 
-    @PostMapping("/register2")
+
+    @PostMapping("/register")
     @ResponseBody
-    public String register2(Model model, RegisterVO vo){
+    public String register(Model model, RegisterVO vo){
         User user = userService.getUserByName(vo.getUsername());
         if (user != null){
             //用户名已存在,无法注册
@@ -65,7 +65,7 @@ public class UserController {
             return "-1";
 
         }else{
-            user = new User(vo.getUsername(),vo.getPassword(),vo.getSex(),vo.getNote());
+            user = new User(vo.getUsername(),vo.getPassword(),vo.getPhone(),vo.getSex(),vo.getNote(),0);
             userService.addUser(user);
             System.out.println("注册成功");
             return "1";
@@ -75,7 +75,7 @@ public class UserController {
     @RequestMapping("/leave")
     public String leave(SessionStatus sessionStatus){
         sessionStatus.setComplete();
-        return "user/login";
+        return "user/index";
     }
 
     private Cookie getCookie(Cookie[] cookies, String name) {
