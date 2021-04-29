@@ -28,7 +28,7 @@
     </select>
 
     <insert id="insertUser" parameterType="com.wsc.entity.User">
-        insert into User values (#{id},#{username},#{password},#{phone},#{sex},#{note},#{disabled})
+        insert into User values (#{id},#{username},#{password},#{phone},#{sexEnum},#{note},#{disabled})
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
@@ -46,8 +46,8 @@
         <if test="phone != null and phone !=''">
             phone = #{phone}
         </if>
-        <if test="sex != null and sex !=''">
-            sex = #{sex}
+        <if test="sexEnum != null and sexEnum !=''">
+            sexEnum = #{sexEnum}
         </if>
         <if test="note != null and note !=''">
             note = #{note}

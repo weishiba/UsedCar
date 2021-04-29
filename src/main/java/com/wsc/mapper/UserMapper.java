@@ -1,5 +1,6 @@
 package com.wsc.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsc.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author 18560
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 查询所有用户

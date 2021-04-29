@@ -1,5 +1,6 @@
 package com.wsc.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsc.entity.UserCarInfo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @date 2021/4/5
  */
 @Mapper
-public interface UserCarInfoMapper {
+public interface UserCarInfoMapper extends BaseMapper<UserCarInfo> {
 
     /**
      * 查询

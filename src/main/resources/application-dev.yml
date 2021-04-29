@@ -12,7 +12,7 @@ spring:
   web:
 #将图片服务器路径配置为静态路径(包含原有的静态路径)
     resources:
-      static-locations: classpath:/static/**,classpath:/resources/**,file:${imgFile}
+      static-locations: classpath:/static/,classpath:/templates/,file:${imgFile}
 
 
 server:

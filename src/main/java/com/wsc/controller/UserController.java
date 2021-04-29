@@ -3,17 +3,16 @@ package com.wsc.controller;
 import com.wsc.VO.RegisterVO;
 import com.wsc.entity.User;
 import com.wsc.service.UserService;
+import com.wsc.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * @author 18560
@@ -39,11 +38,13 @@ public class UserController {
     //登录入口
     @PostMapping("/login")
     @ResponseBody
-    public String login(Model model,String username, String password) {
+    public String login(HttpServletRequest request,Model model,String username, String password) {
             User loginUser = userService.getUser(username, password);
             if (loginUser != null) {
+                session.setAttribute("loginUser",loginUser);
                 model.addAttribute("loginUser",loginUser);
                 System.out.println("登陆成功");
+                System.out.println("loginUser:"+request.getSession().getAttribute("loginUser"));
                 return "1";
             }
             return "-1";
@@ -92,11 +93,10 @@ public class UserController {
     }
 
     @GetMapping("/getUsers")
-    public ModelAndView getUsers(HttpServletRequest request,Model model){
-        List<User> allUser = userService.getAllUser();
-        model.addAttribute("allUser",allUser);
-        model.addAttribute("title","所有用户");
-        return new ModelAndView("user/user","user",model);
+    @ResponseBody
+    public JsonResult getUsers(HttpServletRequest request,Model model,Integer page,Integer limit){
+
+        return userService.getUsers(page,limit);
     }
 
 

@@ -5,7 +5,7 @@ package com.wsc.enums;
  * @date 2021/4/3
  */
 
-public enum Sex {
+public enum SexEnum {
     MAN(1,"男"),
     WOMAN(2,"女");
 
@@ -29,7 +29,7 @@ public enum Sex {
     }
 
 
-    private Sex(int value,String desc){
+    private SexEnum(int value, String desc){
         this.value = value;
         this.desc = desc;
     }
@@ -39,10 +39,10 @@ public enum Sex {
      * @param value
      * @return
      */
-    public String getDesc(int value) {
-        for (Sex sex:Sex.values()){
-            if (sex.getValue() == value){
-                return sex.getDesc();
+    public static String getDesc(int value) {
+        for (SexEnum sexEnum : SexEnum.values()){
+            if (sexEnum.getValue() == value){
+                return sexEnum.getDesc();
             }
         }
         return null;

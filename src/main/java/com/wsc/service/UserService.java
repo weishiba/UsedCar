@@ -1,6 +1,7 @@
 package com.wsc.service;
 
 import com.wsc.entity.User;
+import com.wsc.util.JsonResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,4 +24,5 @@ public interface UserService {
     int removeById(Long id);
 
     int changeUser(User user);
+    JsonResult getUsers(Integer page,Integer limit);
 }

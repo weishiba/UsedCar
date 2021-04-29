@@ -1,5 +1,6 @@
 package com.wsc.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsc.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @date 2021/4/3
  */
 @Mapper
-public interface RoleMapper {
+public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 查询所有角色

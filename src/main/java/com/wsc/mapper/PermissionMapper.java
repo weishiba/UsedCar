@@ -1,5 +1,6 @@
 package com.wsc.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsc.entity.Permission;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @date 2021/4/4
  */
 @Mapper
-public interface PermissionMapper {
+public interface PermissionMapper extends BaseMapper<Permission> {
 
     /**
      * 查询

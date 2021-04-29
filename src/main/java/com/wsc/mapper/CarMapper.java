@@ -1,5 +1,6 @@
 package com.wsc.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsc.VO.CarConditionVO;
 import com.wsc.entity.Car;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 2021/4/4
  */
 @Mapper
-public interface CarMapper {
+public interface CarMapper extends BaseMapper<Car> {
 
     /**
      * 查询

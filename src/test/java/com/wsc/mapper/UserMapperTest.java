@@ -14,4 +14,10 @@ public class UserMapperTest extends MapperTest{
         User users = userMapper.selectUserByName("张三");
         System.out.println(users);
     }
+
+    @Test
+    public void SelectTest(){
+        User user = userMapper.selectById(1);
+        System.out.println(user);
+    }
 }
