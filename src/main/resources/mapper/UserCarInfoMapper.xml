@@ -3,28 +3,32 @@
 <mapper namespace="com.wsc.mapper.UserCarInfoMapper">
 
     <select id="selectAllUserCarInfo" resultType="com.wsc.entity.UserCarInfo">
-        select * from UserCarInfo;
+        select * from User_car_info;
     </select>
 
     <select id="selectByUserId" resultType="com.wsc.entity.UserCarInfo">
-        select * from UserCarInfo where user_id = #{userId};
+        select * from User_car_info where user_id = #{userId};
+    </select>
+
+    <select id="selectByCarId" resultType="com.wsc.entity.UserCarInfo">
+        select * from User_car_info where car_id = #{carId};
     </select>
 
     <select id="selectById" resultType="com.wsc.entity.UserCarInfo">
-        select * from UserCarInfo where id = #{id};
+        select * from User_car_info where id = #{id};
     </select>
 
     <insert id="insertUserCarInfo" parameterType="com.wsc.entity.UserCarInfo">
-        insert into UserCarInfo
+        insert into User_car_info
         values (#{id},#{userId},#{carId},#{saleType})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
-        delete from UserCarInfo where id = #{id}
+    <delete id="deleteUserCarInfoById" parameterType="java.lang.Long">
+        delete from User_car_info where id = #{id}
     </delete>
 
     <update id="updateUserCarInfo" parameterType="com.wsc.entity.UserCarInfo">
-        update UserCarInfo set
+        update User_car_info set
         <if test="userId != null and userId !=''">
             user_id = #{userId},
         </if>

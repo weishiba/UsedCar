@@ -12,10 +12,12 @@ import java.io.Serializable;
 public class RegisterVO implements Serializable {
     private static final long serialVersionUID = -4022135847186982347L;
 
+    private Long userId;
     private String username;
     private String password;
     private String phone;
     private String confirmpassword;
     private Integer sex;//0：女， 1：男
+    private Long roleId;
     private String note;
 }

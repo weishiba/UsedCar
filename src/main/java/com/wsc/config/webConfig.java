@@ -16,6 +16,7 @@ import java.util.Collections;
 public class webConfig{
     @Bean
     public CorsFilter corsFilter() {
+        //跨域配置
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         //1,允许任何来源
         corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));

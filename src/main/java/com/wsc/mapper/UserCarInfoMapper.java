@@ -21,7 +21,8 @@ public interface UserCarInfoMapper extends BaseMapper<UserCarInfo> {
 
     UserCarInfo selectById(Long id);
 
-    List<UserCarInfo> selectByUserId(Long uid);
+    List<UserCarInfo> selectByUserId(Long userId);
+    UserCarInfo selectByCarId(String CarId);
 
     /**
      * 添加

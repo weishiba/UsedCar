@@ -17,7 +17,7 @@ public class UserMapperTest extends MapperTest{
 
     @Test
     public void SelectTest(){
-        User user = userMapper.selectById(1);
-        System.out.println(user);
+        User user = new User();
+        userMapper.updateUser(user);
     }
 }

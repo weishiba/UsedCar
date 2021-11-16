@@ -19,7 +19,9 @@ public interface PictureMapper extends BaseMapper<Picture> {
      */
     List<Picture> selectAllPicture();
 
-    Picture selectById(Long id);
+    Picture selectById(String id);
+
+    Picture selectByCarId(String carId);
 
     /**
      * 添加
@@ -33,12 +35,15 @@ public interface PictureMapper extends BaseMapper<Picture> {
      * @param id
      * @return
      */
-    int deletePictureById(Long id);
+    int deleteById(String id);
 
+    int deletePictureByCarId(String carId);
     /**
      * 修改
      * @param picture
      * @return
      */
     int updatePicture(Picture picture);
+
+
 }

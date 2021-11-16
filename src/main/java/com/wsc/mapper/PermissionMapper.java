@@ -19,7 +19,7 @@ public interface PermissionMapper extends BaseMapper<Permission> {
      */
     List<Permission> selectAllPermission();
 
-    Permission selectById(Long id);
+    Integer selectByUserId(Long id);
 
     /**
      * 添加

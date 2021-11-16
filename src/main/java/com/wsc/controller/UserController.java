@@ -1,9 +1,14 @@
 package com.wsc.controller;
 
 import com.wsc.VO.RegisterVO;
+import com.wsc.VO.TokenVO;
+import com.wsc.VO.backVO.UserVO;
 import com.wsc.entity.User;
+import com.wsc.service.PermissionService;
 import com.wsc.service.UserService;
 import com.wsc.util.JsonResult;
+import com.wsc.util.Result;
+import com.wsc.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,62 +24,125 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("/user")
+/**
+ * 使用token记录用户信息
+ */
 @SessionAttributes("loginUser")
 public class UserController {
 
     @Autowired
     private UserService userService;
     @Autowired
+    private PermissionService permissionService;
+    @Autowired
     private HttpSession session;
 
-    //跳转主页使用默认跳转代替
+    User user = new User();
+
 
 
     @GetMapping("/index")
-    public String login(){
+    public String login() {
         return "user/index";
     }
 
     //登录入口
     @PostMapping("/login")
     @ResponseBody
-    public String login(HttpServletRequest request,Model model,String username, String password) {
-            User loginUser = userService.getUser(username, password);
-            if (loginUser != null) {
-                session.setAttribute("loginUser",loginUser);
-                model.addAttribute("loginUser",loginUser);
-                System.out.println("登陆成功");
-                System.out.println("loginUser:"+request.getSession().getAttribute("loginUser"));
-                return "1";
+    public Result login(HttpServletRequest request, Model model, String username, String password) {
+        User loginUser = userService.getUserByName(username);
+        if (loginUser != null) {
+            if (loginUser.getDisabled() == 0){
+                User loginUser2 = userService.getUser(username, password);
+                if (loginUser2 != null) {
+                    session.setAttribute("loginUser", loginUser2);
+                    model.addAttribute("loginUser", loginUser2);
+                    System.out.println("登陆成功");
+                    System.out.println("loginUser:" + request.getSession().getAttribute("loginUser"));
+                    //生成token，并保存到数据库
+                    String token = userService.createToken(loginUser2);
+                    TokenVO tokenVO = new TokenVO();
+                    tokenVO.setToken(token);
+                    System.out.println(token);
+                    System.out.println("登陆成功");
+                    return Result.ok(tokenVO);
+                }
+                return Result.build(401, "密码不正确！");
             }
-            return "-1";
+            return Result.build(400, "该用户已被禁用!");
+        }
+        return Result.build(401, "该用户不存在！");
+    }
 
+    //后台登录入口
+    @PostMapping("/loginBack")
+    @ResponseBody
+    public Result loginBack(HttpServletRequest request, String username, String password) {
+        User loginUser = userService.getUserByName(username);
+        //判断用户名存在
+        if (loginUser != null) {
+            //判断用户是否被禁用
+            if (loginUser.getDisabled() == 0){
+                User loginUser2 = userService.getUser(username, password);
+                //判断用户密码是否正确
+                if (loginUser2 != null) {
+                    Integer roleId = permissionService.getByUserId(loginUser.getId());
+                    if (roleId != null && (roleId == 3 || roleId == 4)) {
+                        //生成token，并保存到数据库
+                        String token = userService.createToken(loginUser2);
+                        TokenVO tokenVO = new TokenVO();
+                        tokenVO.setToken(token);
+                        System.out.println(token);
+                        System.out.println("登陆成功");
+                        return Result.ok(tokenVO);
+                    }
+                    //用户不是管理员
+                    return Result.build(400, "用户不是管理员!");
+                }
+                //密码不正确
+                return Result.build(400, "密码不正确!");
+            }
+            //该用户已被禁用
+            return Result.build(400, "该用户已被禁用!");
+        }
+        //该用户不存在
+        return Result.build(400, "该用户不存在!");
+
+
+    }
+
+    /**
+     * 登出
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/logout")
+    @ResponseBody
+    public Result logout(HttpServletRequest request) {
+        //从request中取出token
+        String token = TokenUtil.getRequestToken(request);
+        userService.logout(token);
+        return Result.ok();
     }
 
 
     @PostMapping("/register")
     @ResponseBody
-    public String register(Model model, RegisterVO vo){
-        User user = userService.getUserByName(vo.getUsername());
-        if (user != null){
-            //用户名已存在,无法注册
-            System.out.println("用户名已存在,无法注册");
-            return "0";
-        }else if (!vo.getPassword().equals(vo.getConfirmpassword())){
-            //两次密码输入不一致
-            System.out.println("两次密码输入不一致");
-            return "-1";
-
-        }else{
-            user = new User(vo.getUsername(),vo.getPassword(),vo.getPhone(),vo.getSex(),vo.getNote(),0);
-            userService.addUser(user);
-            System.out.println("注册成功");
-            return "1";
-        }
+    public String register(RegisterVO vo) {
+        return userService.addUser(vo);
 
     }
+
+    @PostMapping("/getByToken")
+    @ResponseBody
+    public User getByToken(String token) {
+        return userService.findByToken(token);
+
+    }
+
     @RequestMapping("/leave")
-    public String leave(SessionStatus sessionStatus){
+    public String leave(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
         return "user/index";
     }
@@ -92,30 +160,52 @@ public class UserController {
         return cookie;
     }
 
-    @GetMapping("/getUsers")
+    @GetMapping("/getAbleUsers")
     @ResponseBody
-    public JsonResult getUsers(HttpServletRequest request,Model model,Integer page,Integer limit){
+    public JsonResult getAbleUsers(HttpServletRequest request, Model model, UserVO vo, Integer page, Integer limit) {
 
-        return userService.getUsers(page,limit);
+        return userService.getAbleUsers(vo, page, limit);
+    }
+
+    @GetMapping("/getDisableUsers")
+    @ResponseBody
+    public JsonResult getDisableUsers(HttpServletRequest request, Model model, UserVO vo, Integer page, Integer limit) {
+
+        return userService.getDisableUsers(vo, page, limit);
     }
 
 
-    @RequestMapping("/getuser/{id}")
+    /*@RequestMapping("/detail")
     @ResponseBody
-    public String getuser(@PathVariable long id){
-        System.out.println("111111111111");
-        return userService.getUser(id).toString();
+    public JsonResult detail(long id){
+        System.out.println("查看详情");
+        return userService.getUser(id);
+    }*/
+
+    @RequestMapping("/disable")
+    @ResponseBody
+    public String disable(long id) {
+        System.out.println("禁用用户");
+        return userService.disable(id);
     }
 
-    @RequestMapping("/get")
+    @RequestMapping("/able")
     @ResponseBody
-    public User getuser(){
-        System.out.println("111111111111");
-        User user = new User();
-        user.setUsername("张三");
-        user.setPassword("11111");
-        System.out.println("11111");
-        return user;
+    public String able(long id) {
+        System.out.println("恢复用户");
+        return userService.able(id);
+    }
+
+    @RequestMapping("/edit")
+    @ResponseBody
+    public String edit(RegisterVO vo) {
+        return userService.edit(vo);
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String delete(Long id) {
+        return userService.delete(id);
     }
 
 

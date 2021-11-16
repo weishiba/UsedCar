@@ -6,6 +6,7 @@ import com.wsc.entity.Car;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 /**
  * @author wsc
@@ -20,5 +21,14 @@ public class CarServiceImplTest extends ServiceTest {
         vo.setPriceEnd(BigDecimal.valueOf(50));
         PageInfo<Car> carPageInfo = carService.getByConditionPages(vo, 1, 2);
         System.out.println(carPageInfo);
+    }
+
+    @Test
+    public void Test2(){
+        Scanner sc = new Scanner(System.in);
+        String src = sc.next();
+        //a:2,b:4@a:1,b:2
+        String[] split = src.split("@");
+        System.out.println(split);
     }
 }

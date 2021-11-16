@@ -10,18 +10,27 @@
         select * from Picture where id = #{id};
     </select>
 
+    <select id="selectByCarId" resultType="com.wsc.entity.Picture">
+        select * from Picture where car_id = #{carId};
+    </select>
+
     <insert id="insertPicture" parameterType="com.wsc.entity.Picture">
         insert into Picture
         values (#{id},#{carId},#{picture1Path},#{picture2Path},#{picture3Path},#{picture4Path}
         ,#{picture5Path},#{picture6Path},#{picture7Path})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
+    <delete id="deleteById" parameterType="java.lang.String">
         delete from Picture where id = #{id}
     </delete>
 
+    <delete id="deletePictureByCarId" parameterType="java.lang.String">
+        delete from Picture where car_id = #{carId}
+    </delete>
+
     <update id="updatePicture" parameterType="com.wsc.entity.Picture">
-        update Picture set
+        update Picture
+        <set>
         <if test="carId != null and carId !=''">
             car_id = #{carId},
         </if>
@@ -46,6 +55,7 @@
         <if test="picture7Path != null and picture7Path !=''">
             picture7_path = #{picture7Path}
         </if>
+        </set>
         <where>
             id = #{id}
         </where>

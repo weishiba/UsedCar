@@ -1,7 +1,8 @@
 package com.wsc.controller.backControllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Scanner;
 
 /**
  * @author wsc
@@ -9,9 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class indexController {
+    public static void main(String[] args) {
 
-    @GetMapping("index")
-    public String index(){
-        return "index";
+        Scanner sc = new Scanner(System.in);
+        String src = sc.next();
+        //a:2,b:4@a:1,b:2
+        String[] split = src.split("@");
+        System.out.println(split);
+
     }
+
 }

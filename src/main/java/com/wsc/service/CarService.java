@@ -2,7 +2,10 @@ package com.wsc.service;
 
 import com.github.pagehelper.PageInfo;
 import com.wsc.VO.CarConditionVO;
+import com.wsc.VO.CarVO;
 import com.wsc.entity.Car;
+import com.wsc.util.JsonResult;
+import com.wsc.util.Result;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,23 +25,35 @@ public interface CarService {
 
     List<Car> getByCondition(CarConditionVO conditionVO);
 
-    PageInfo<Car> getByConditionPages(CarConditionVO conditionVO,int pageNow,int pageSize);
+    //根据Id查看车辆详情
+    JsonResult getCar(String id);
 
-    Car getById(Long id);
+    //查看上架中的车辆
+    JsonResult getAbleCar(CarVO vo, Integer page, Integer limit);
+
+    //查看未上架中的车辆
+    JsonResult getDisableCar(CarVO vo, Integer page, Integer limit);
+
+    CarVO getById(String id);
 
     /**
      * 添加
-     * @param car
+     * @param VO
      * @return
      */
-    int addCar(Car car);
+    Result addCar(CarVO VO);
 
     /**
      * 删除
      * @param id
      * @return
      */
-    int removeCarById(Long id);
+    String removeCarById(String id);
+
+    //下架
+     String disable(String id);
+    //上架
+     String able(String id);
 
     /**
      * 修改
@@ -46,4 +61,7 @@ public interface CarService {
      * @return
      */
     int changeCar(Car car);
+    String edit(CarVO vo);
+
+    PageInfo<Car> getByConditionPages(CarConditionVO conditionVO, Integer page, Integer limit);
 }

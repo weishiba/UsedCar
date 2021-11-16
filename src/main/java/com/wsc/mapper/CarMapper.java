@@ -2,6 +2,7 @@ package com.wsc.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wsc.VO.CarConditionVO;
+import com.wsc.VO.EChartsVO.CarEChartsVO;
 import com.wsc.entity.Car;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,7 +23,9 @@ public interface CarMapper extends BaseMapper<Car> {
 
     List<Car> selectByCondition(CarConditionVO conditionVO);
 
-    Car selectById(Long id);
+    Car selectById(String id);
+
+    CarEChartsVO selectSum();
 
     /**
      * 添加
@@ -36,7 +39,12 @@ public interface CarMapper extends BaseMapper<Car> {
      * @param id
      * @return
      */
-    int deleteCarById(Long id);
+    int deleteCarById(String id);
+
+    //下架
+    int disable(String id);
+    //上架
+    int able(String id);
 
     /**
      * 修改

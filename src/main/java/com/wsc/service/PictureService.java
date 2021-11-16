@@ -18,7 +18,9 @@ public interface PictureService {
      */
     List<Picture> getAllPicture();
 
-    Picture getById(Long id);
+    Picture getById(String id);
+
+    Picture getByCarId(String id);
 
     /**
      * 添加
@@ -32,7 +34,7 @@ public interface PictureService {
      * @param id
      * @return
      */
-    int removePictureById(Long id);
+    int removePictureById(String id);
 
     /**
      * 修改

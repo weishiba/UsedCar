@@ -10,14 +10,14 @@ import java.util.List;
  * @date 2021/4/5
  */
 @Service
-public interface PermissionService {
+public interface PermissionService{
     /**
      * 查询
      * @return
      */
     List<Permission> getAllPermission();
 
-    Permission getById(Long id);
+    Integer getByUserId(Long id);
 
     /**
      * 添加

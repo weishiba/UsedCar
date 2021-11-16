@@ -12,8 +12,9 @@ public class UserVO {
     private String username;
     private String password;
     private String phone;
-    private String sexEnum;//0：女， 1：男
+    private Integer sex;//0：女， 1：男
     private String note;
+    private String role;
 
 
 

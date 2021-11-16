@@ -1,6 +1,7 @@
 package com.wsc.service;
 
 import com.wsc.entity.UserCarInfo;
+import com.wsc.util.JsonResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,10 @@ public interface UserCarInfoService {
 
     UserCarInfo getById(Long id);
 
-    List<UserCarInfo> getByUserId(Long uid);
+    JsonResult getSellByUserId(Long userId);
+    JsonResult getBuyByUserId(Long userId);
+
+    UserCarInfo getByCarId(String carId);
 
     /**
      * 添加

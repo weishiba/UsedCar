@@ -21,32 +21,70 @@
     <br>
     <br>
     <hr/>
-    <table>
-        <tr>
-            <td>id</td>
-            <td>缩略图</td>
-            <td>品牌</td>
-            <td>标价</td>
-            <td>车龄里程数</td>
-        </tr>
+    <div class="row">
+
+
         <tr th:if="${allCar.list.size() eq 0}">
             <td>暂时没有指定二手车信息！</td>
         </tr>
-        <tr th:each="car:${allCar.list}">
-            <td th:text="${car.id}"></td>
-            <td>
+
+        <div class="col-md-4 col-sm-4" th:each="car:${allCar.list}">
+            <div class="single-product-item">
+                <div class="new-product-label"><span>new</span></div>
                 <div class="single-product clearfix">
                     <a href="#">
-
-                            <img th:src="@{'/img/'+${car.picture}+'.jpg'}" >
-
+                                                    <span class="product-image">
+                                                        <img src="img/product/11.jpg" alt="">
+                                                    </span>
+                        <span class="product-image hover-image">
+                                                        <img src="img/product/10.jpg" alt="">
+                                                    </span>
                     </a>
+                    <div class="button-actions clearfix">
+                        <button class="button add-to-cart" type="button">
+                            <span><i class="fa fa-shopping-cart"></i></span>
+                        </button>
+                        <ul class="add-to-links">
+                            <li class="quickview">
+                                <a class="btn-quickview modal-view" href="#" data-toggle="modal" data-target="#productModal">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="link-wishlist" href="wishlist.html">
+                                    <i class="fa fa-heart"></i>
+                                </a>
+                            </li>																													<li>
+                            <a class="link-compare" href="#">
+                                <i class="fa fa-retweet"></i>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
                 </div>
-            </td>
-            <td th:text="${car.brand}"></td>
-            <td th:text="${car.price}"></td>
-            <td th:text="|${car.usedTime}年 ${car.mileage}公里|"></td>
-        </tr>
+                <h2 class="single-product-name"><a href="#">Accumsan elit </a></h2>
+                <div class="price-box">
+                    <p class="special-price">
+                        <span th:text="${car.id}" class="price"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+<!--        <tr th:each="car:${allCar.list}">-->
+<!--            <td th:text="${car.id}"></td>-->
+<!--            <td>-->
+<!--                <div class="single-product clearfix">-->
+<!--                    <a href="#">-->
+
+<!--                            <img th:src="@{'/img/'+${car.picture}+'.jpg'}" >-->
+
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            <td th:text="${car.brand}"></td>-->
+<!--            <td th:text="${car.price}"></td>-->
+<!--            <td th:text="|${car.usedTime}年 ${car.mileage}公里|"></td>-->
+<!--        </tr>-->
         <!--<div class="col-md-4 col-sm-4">
             <div class="single-product-item">
                 <div class="single-product clearfix">
@@ -67,7 +105,7 @@
                 </div>
             </div>
         </div>-->
-    </table>
+    </div>
 </div>
 
 <script type="text/javascript" th:src="@{/js/script.js}"></script>

@@ -1,6 +1,7 @@
 package com.wsc.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wsc.VO.EChartsVO.UserEChartsVO;
 import com.wsc.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,6 +27,8 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User selectUser(long id);
 
+    User findByToken(String token);
+
     User selectUser1(String username, String password);
 
     User selectUserByName(String name);
@@ -35,5 +38,13 @@ public interface UserMapper extends BaseMapper<User> {
     int deleteById(Long id);
 
     int updateUser(User user);
+
+    int disableUser(Long id);
+
+    int ableUser(Long id);
+
+
+
+    UserEChartsVO userSum();
 
 }

@@ -12,4 +12,10 @@ public class Permission {
     private Long userId;
     private Long roleId;
 
+    public Permission() {
+    }
+    public Permission(Long userId, Long roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 }

@@ -8,17 +8,25 @@ import lombok.Data;
  */
 @Data
 public class JsonResult {
-    private Integer code;
-    private String message;
-    private Integer count;
-    private Object data;
+    public Integer code;
+    public String message;
+    public Integer count;
+    public Object data;
+    public Integer size;
 
     public JsonResult() {
 
     }
-    public JsonResult(Integer code, String message, Object data) {
-        this.code = code;
-        this.message = message;
+    public JsonResult(Object data,Integer count) {
+        this.code = 0;
+        this.message = "成功！";
         this.data = data;
+        this.count = count;
+    }
+
+    //组装成功返回信息
+    public static JsonResult success(Object data,Integer count){
+
+        return new JsonResult(data,count);
     }
 }

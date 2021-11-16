@@ -6,29 +6,31 @@
         select * from Permission;
     </select>
 
-    <select id="selectById" resultType="com.wsc.entity.Permission">
-        select * from Permission where id = #{id};
+    <select id="selectByUserId" resultType="java.lang.Integer">
+        select role_id from Permission where user_id = #{id};
     </select>
 
     <insert id="insertPermission" parameterType="com.wsc.entity.Permission">
-        insert into Permission
-        values (#{id},#{userId},#{roleId})
+        insert into Permission(user_id,role_id)
+        values (#{userId},#{roleId})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
+    <delete id="deleteById" parameterType="java.lang.Long">
         delete from Permission where id = #{id}
     </delete>
 
     <update id="updatePermission" parameterType="com.wsc.entity.Permission">
-        update Permission set
+        update Permission
+        <set>
         <if test="userId != null and userId !=''">
         user_id = #{userId},
         </if>
         <if test="roleId != null and roleId !=''">
-        role_id = #{roleId}
+        role_id = #{roleId},
         </if>
+        </set>
         <where>
-            id = #{id}
+            and id = #{id}
         </where>
     </update>
 

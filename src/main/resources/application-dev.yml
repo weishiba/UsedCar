@@ -1,3 +1,8 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /usedcar
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,22 +15,25 @@ spring:
     mode: HTML
 
   web:
-#将图片服务器路径配置为静态路径(包含原有的静态路径)
+    #将图片服务器路径配置为静态路径(包含原有的静态路径)
     resources:
       static-locations: classpath:/static/,classpath:/templates/,file:${imgFile}
-
-
-server:
-  port: 8888
+    #配置上传文件
   servlet:
-    context-path: /usedcar
-
-#图片的访问路径配置(物理路径)
-imgFile: E:\upload\
+    multipart:
+      #单文件大小
+      max-file-size: 10MB
+      #总文件大小
+      max-request-size: 100MB
 
 mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.wsc.entity
 
 
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

@@ -22,41 +22,76 @@
     <select id="selectUserByName" resultType="com.wsc.entity.User">
         select * from user where username = #{username};
     </select>
+
+    <select id="findByToken" resultType="com.wsc.entity.User">
+        select * from user where token = #{token};
+    </select>
+
     <!-- 根据用户名字模糊查询 -->
     <select id="selectUsersByName" resultType="com.wsc.entity.User">
         select * from user where username like concat('%', #{username},'%' );
     </select>
 
+    <select id="userSum" resultType="com.wsc.VO.EChartsVO.UserEChartsVO">
+        SELECT
+        count(u.id) as total,
+        sum(u.disabled =1) as black,
+        sum(p.role_id=2 and u.disabled=0) as users,
+        sum(p.role_id=3 or p.role_id=4 and u.disabled=0) as manager
+        FROM user u,permission p
+        where  u.id = p.user_id
+    </select>
+
     <insert id="insertUser" parameterType="com.wsc.entity.User">
-        insert into User values (#{id},#{username},#{password},#{phone},#{sexEnum},#{note},#{disabled})
+        insert into User(username,password,phone,sex,note,disabled) values
+         (#{username},#{password},#{phone},#{sex},#{note},#{disabled})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
+    <delete id="deleteById" parameterType="java.lang.Long">
         delete from User where id = #{id}
     </delete>
 
     <update id="updateUser" parameterType="com.wsc.entity.User">
-        update User set
-        <if test="username != null and username !=''">
-            username = #{username},
-        </if>
-        <if test="password != null and password !=''">
-            password = #{password}
-        </if>
-        <if test="phone != null and phone !=''">
-            phone = #{phone}
-        </if>
-        <if test="sexEnum != null and sexEnum !=''">
-            sexEnum = #{sexEnum}
-        </if>
-        <if test="note != null and note !=''">
-            note = #{note}
-        </if>
-        <if test="disabled != null and disabled !=''">
-            disabled = #{disabled}
-        </if>
+        update User
+        <set>
+            <if test="username != null and username !=''">
+                username = #{username},
+            </if>
+            <if test="password != null and password !=''">
+                password = #{password},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="note != null and note !=''">
+                note = #{note},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled},
+            </if>
+            <if test="token != null and token !=''">
+                token = #{token},
+            </if>
+            <if test="expireTime != null">
+                expire_time = #{expireTime},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime},
+            </if>
+        </set>
         <where>
-            id = #{id}
+            and id = #{id}
         </where>
+    </update>
+
+    <update id="disableUser" parameterType="com.wsc.entity.User">
+        update User set disabled = 1 where id = #{id};
+    </update>
+
+    <update id="ableUser" parameterType="com.wsc.entity.User">
+        update User set disabled = 0 where id = #{id};
     </update>
 </mapper>

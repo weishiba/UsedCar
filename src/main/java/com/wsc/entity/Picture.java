@@ -8,8 +8,8 @@ import lombok.Data;
  */
 @Data
 public class Picture {
-    private Long id;
-    private Long carId;
+    private String id;
+    private String carId;
     private String picture1Path;
     private String picture2Path;
     private String picture3Path;

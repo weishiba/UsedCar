@@ -11,6 +11,6 @@ import lombok.Data;
 public class UserCarInfo {
     private Long id;
     private Long userId;//用户编号
-    private Long carId;//车辆编号
+    private String carId;//车辆编号
     private Integer saleType;//交易类型（0:寄售类型，1:求购类型）
 }
